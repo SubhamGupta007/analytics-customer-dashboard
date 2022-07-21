@@ -1,59 +1,80 @@
-import React,{useState,useEffect} from 'react'
-import Loginimg from "../images/loginimg.png"
+import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import {AiFillAccountBook} from "react-icons/ai"
 
-const Login = () => {
- 
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("")
-  const login = async (e) => {
-    e.preventDefault();
-    let item={email,password};
-    console.log(item)
-    let result = await fetch ("",{
-      method:'POST',
-      headers:{
+// importing toastify ----> alert box 
+import { ToastContainer, toast } from 'react-toastify';
+import "../../../node_modules/react-toastify/dist/ReactToastify.css"
 
-        "Content-Type":"application/json",
-        "Accept":"application/json"
-      },
-      body:JSON.stringify(item)
-    })
-    result=await result.JSON();
-  }
+const Form = () => {
+    const [login, setlogin] = useState({email:"",password:""})
+    const navigate = useNavigate();
+
+    const handleclick = async (e) => {
+        e.preventDefault();
+        const url = `https://bff.dev.mable.ai/auth/login`
+        const response = await fetch(url,{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email:login.email,password:login.password})
+        }).then(token => { return token })
+        console.log(login);
+        const json = await  response.json();
+        console.log(json);
+        if(json.auth)
+        {
+            localStorage.setItem('token', json.authtoken);
+            navigate("/")
+        }
+        else
+        {
+          toast("Please enter a valid Login Credentials!", {
+            className:"custom-style",
+                      progressClassName:"custom-progress",
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+            });
+          console.log('enter a valid credentials')
+        }
+    }
+    const onchange = (e) => {
+        setlogin({...login,[e.target.name]:e.target.value})
+    }
   return (
-    <section className="h-screen" style={{backgroundColor:"#172337"}}>
-    <div className="container  h-full">
-      <div className="flex flex-wrap h-full">
-        <div className="md:w-12/12 lg:w-6/12  ">
-          <img
-            src={Loginimg}
-            className="w-full h-full"
-            alt="banner image"
-          />
-        </div>
-        <div className=" justify-center items-center md:w-8/12 lg:w-5/12 " style={{marginTop:"10%"}}>
-        
-          <form className='mx-4' onSubmit={login}>
+    <>
+    <ToastContainer/>
+     <form className='mx-4' onSubmit={handleclick} >
           <h1 className='  text-bold text-5xl font-bold text-center mb-6 text-white'>Login</h1>
           <h3 className='text-bold text-lg mb-6 text-center tracking-wider text-white'>Build your analytics to next level!</h3>
-            <div className="mb-6">
-              
-              <input
+            <div className="mb-6">  
+            <input
               
                 type="text"
                 className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700  bg-transparent bg-clip-padding border border-solid border-gray-500 rounded transition ease-in-out m-0 focus:text-blue-300 focus:bg-transparent focus:border-blue-400 focus:outline-none"
                 placeholder=" &#xf0e0; Email address"
-                onChange={(e)=>setemail(e.target.value)}
+                name="email"
+                onChange={onchange}
+                required
               />
             </div>
   
     
             <div className="mb-6">
+            {/* <AiFillAccountBook/> */}
               <input
                 type="password"
                 className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-transparent bg-clip-padding border border-solid border-gray-500 rounded transition ease-in-out m-0 focus:text-blue-300 focus:bg-transparent focus:border-blue-400 focus:outline-none"
-                placeholder=" &#xf30d; Password"
-                onChange={(e)=>setpassword(e.target.value)}
+                placeholder="password"
+                name="password"
+                onChange={onchange}
+                required
               />
             </div>
   
@@ -61,9 +82,9 @@ const Login = () => {
               <div className="form-group form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input appearance-none h-4 w-4 border border-gray-500 rounded-sm bg-none checked:bg-none checked:border-gray-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  className="form-check-input appearance-none h-4 w-4 border border-gray-500 rounded-sm bg-none checked:bg-none checked:border-blue-600 checked:bg-blue-400 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   id="exampleCheck3"
-                  checked
+                  
                 />
                 <label className="form-check-label inline-block text-gray-500" for="exampleCheck2"
                   >Remember me</label
@@ -83,6 +104,7 @@ const Login = () => {
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
               style={{backgroundColor:"#4FB7DD"}}
+              
             >
               Login
             </button>
@@ -97,11 +119,8 @@ const Login = () => {
             
             
           </form>
-        </div>
-      </div>
-    </div>
-  </section>
+    </>
   )
 }
 
-export default Login
+export default Form

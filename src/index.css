@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/*react toastify css*/
+.custom-style{
+    color: #fff!important;
+    background-color: #172337!important;
+
+ }
+ .Toastify__close-button {
+    color: #fff !important;
+}
+ .custom-progress{
+   background:white!important;
+ }
