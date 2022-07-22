@@ -1,10 +1,10 @@
 import React from 'react'
-import Loginimg from "../../Images/loginimg.png"
+import Registerimg from "../../Images/register2.png"
 const Left_image = () => {
   return (
     <>
     <div className="md:w-12/12 lg:w-6/12  ">
-          <img src={Loginimg} className="w-[99%] h-full" alt="login_banner_image" />
+          <img src={Registerimg} className="w-full justify-center mx-auto h-full" alt="register_banner_image" />
     </div>
     </>
   )
