@@ -1,6 +1,10 @@
 import React,{useState} from 'react'
 import { useNavigate,NavLink } from 'react-router-dom'
 
+// importing icons
+import {GrMail} from "react-icons/gr"
+import {AiFillLock} from "react-icons/ai"
+
 
 // importing toastify ----> alert box 
 import { ToastContainer, toast } from 'react-toastify';
@@ -55,11 +59,12 @@ const Form = () => {
      <form className='mx-auto ' onSubmit={handleclick} >
           <h1 className='  text-bold text-5xl font-bold text-center mb-6 text-white'>Login</h1>
           <h3 className='text-bold text-lg mb-6 text-center tracking-wider text-white'>Build your analytics to next level!</h3>
-            <div className="mb-6">  
+            <div className="mb-6">
+            <GrMail color='white' className='absolute h-12 pl-2 w-10'/>  
             <input
               
                 type="text"
-                className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700  bg-transparent bg-clip-padding border border-solid border-gray-500 rounded transition ease-in-out m-0 focus:text-blue-300 focus:bg-transparent focus:border-blue-400 focus:outline-none"
+                className="form-control block w-full px-10 py-2 text-xl font-normal text-gray-700  bg-transparent bg-clip-padding border border-solid border-gray-500 rounded transition ease-in-out m-0 focus:text-blue-300 focus:bg-transparent focus:border-blue-400 focus:outline-none"
                 placeholder="Email address"
                 name="email"
                 onChange={onchange}
@@ -69,11 +74,12 @@ const Form = () => {
   
     
             <div className="mb-6">
-            {/* <AiFillAccountBook/> */}
+            <AiFillLock color='grey' className=' absolute h-12 pl-2 w-10'/>  
+              
               <input
                 
                 type="password"
-                className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-transparent bg-clip-padding border border-solid border-gray-500 rounded transition ease-in-out m-0 focus:text-blue-300 focus:bg-transparent focus:border-blue-400 focus:outline-none"
+                className="form-control block w-full px-10 py-2 text-xl font-normal text-gray-700 bg-transparent bg-clip-padding border border-solid border-gray-500 rounded transition ease-in-out m-0 focus:text-blue-300 focus:bg-transparent focus:border-blue-400 focus:outline-none"
                 placeholder="password"
                 name="password"
                 onChange={onchange}

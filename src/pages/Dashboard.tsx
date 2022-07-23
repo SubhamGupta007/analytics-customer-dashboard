@@ -1,21 +1,23 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 
-// left
+import Main from '../components/Dashboard/Right/Main'
 import Sidebar from '../components/Dashboard/Left/Sidebar'
 
-// right
 
 const Dashboard = () => {
+  
   return (
-    <div className="container">
-        <div className="flex flex-col">
-          <div className="left">
-            <Sidebar/>
-          </div>
-          <div className="right"></div>
-        </div>
+   
+    <div className="flex" style={{backgroundColor:"#0A121E"}}>
+   <Sidebar/>
+    <div className="h-screen flex-1 p-7">
+     
+      <h1 className="text-2xl text-white font-semibold ">
+         <Main/>
+      </h1>
     </div>
+  </div>
   )
 }
 
